@@ -1,6 +1,3 @@
-<img src="https://i.ibb.co/nrdvBys/task-manager-cover-picture.jpg" width="100%">
-
-
 <div align="center">
 <h1>Ghorer Khabar - Food Delivery Website - Demo</h1>
 A Python-Django Food Delivery Web Application
