@@ -1,0 +1,143 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Order View | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+<section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+    <div class="container">
+
+        <div class="row d-flex align-items-center">
+            <div class="col-md-12 col-lg-12">
+               <div class="bg-white p-4 shadow-lg mb-2">
+                  <div class="mb-2"><small>Order #{{order.tracking_ID}}</small></div>
+                  <h6 class="mb-1 mt-1"><a class="text-black">{{order.item_name}}
+                     </a>
+                  </h6>
+                  <p class="text-gray mb-0"><i class="fa fa-clock-o"></i> 
+                    {{order.order_date}}</p>
+               </div>
+               <div class="bg-white p-4 shadow-lg">
+                  <div class="osahan-track-order-detail po">
+                     <h5 class="mt-0 mb-3">Order Details</h5>
+                     <div class="row">
+                        <div class="col-md-5">
+                           <small>FROM</small>
+                           <h6 class="mb-1 mt-1">
+                            <a class="text-black">
+                                <i class="fa fa-user-plus"></i> 
+                                {{order.user.username}}
+                            </a>
+                           </h6>
+                           <p class="text-gray mb-5">{{order.pickup_address.address_01}}, {{order.pickup_address.upazila}}, {{order.pickup_address.district}}, {{order.pickup_address.country}}</p>
+
+
+                           <small>DELIVER TO</small>
+                           <h6 class="mb-1 mt-1"><span class="text-black"><i class="fa fa-map-marker"></i> {{order.recipient_name}}
+                              </span>
+                           </h6>
+                           <p class="text-gray mb-0">{{order.delivery_address.address_01}}, {{order.delivery_address.upazila}}, {{order.delivery_address.district}}, {{order.delivery_address.country}}
+                           </p>
+                        </div>
+                        <div class="col-md-7">
+                           <div class="mb-2"><small><i class="fa fa-list-alt"></i> Bill Details</small></div>
+                           <p class="mb-2"><i class="fa fa-caret-square-o-right" style="color: #f32129 !important;"></i> Shipping Charge   <span class="float-right text-secondary">{{order.shipping_charge}}</span></p>
+                           <p class="mb-2"><i class="fa fa-caret-square-o-right" style="color: #3ecf8e !important;"></i> Payment   <span class="float-right text-secondary">
+                              {% if order.shipping_charge_paid == True %}
+                              {{order.shipping_charge}}
+                              {% else %}
+                              0
+                              {% endif %}
+                           </span></p>
+                           <p class="mb-2">
+                              <i class="fa fa-caret-square-o-right" style="color: #3ecf8e !important;"></i> 
+                              Discount  
+                              <span class="float-right text-secondary">0</span>
+                           </p>
+                           <hr>
+                           <p class="mb-0 font-weight-bold text-black">Total Bill<span class="float-right text-secondary">
+                              {% if order.shipping_charge_paid == True %}
+                              0
+                              {% else %}
+                              {{order.shipping_charge}}
+                              {% endif %}
+                           </span></p>
+                           {% if order.shipping_charge_paid == True %}
+                           <p class="mb-0 text-info"><small>Paid via Online
+                              <span class="float-right text-danger">
+                              {{order.shipping_charge}}
+                              </span></small>
+                           </p>
+                           {% endif %}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="bg-white p-4 shadow-lg mt-2">
+                  <div class="row text-center">
+                     {% if order.status != 'Pending' %}
+
+                     {% if order.status == 'Received' %}
+                     <div class="col">
+                        <i class="fa fa-tasks fa-3x" style="color: #17a2b8!important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order Received</p>
+                        <small class="text-info mb-0">Now</small>
+                     </div>
+                     {% endif %}
+
+                     {% if order.status == 'Shipped' %}
+                     <div class="col">
+                        <i class="fa fa-truck fa-3x" style="color: #ff3008 !important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order Shipped</p>
+                        <small class="text-success mb-0">NEXT</small>
+                     </div>
+                     {% endif %}
+
+                     {% if order.status == 'On The Way' %}
+                     <div class="col">
+                        <i class="fa fa-truck fa-3x" style="color: #ff3008 !important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">On The Way</p>
+                     </div>
+                     {% endif %}
+
+                     {% if order.status == 'Receive at delivery point' %}
+                     <div class="col">
+                        <i class="fa fa-tasks fa-3x" style="color: #17a2b8!important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order RDP</p>
+                        <small class="text-info mb-0">Now</small>
+                     </div>
+                     {% endif %}
+
+                     {% if order.status == 'Out For Delivery' %}
+                     <div class="col">
+                        <i class="fa fa-truck fa-3x" style="color: #ff3008 !important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order OFD</p>
+                        <small class="text-success mb-0">NEXT</small>
+                     </div>
+                     {% endif %}
+
+                     {% if order.status == 'Delivered' %}
+                     <div class="col">
+                        <i class="fa fa-check-circle-o fa-3x text-success"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order Delivered</p>
+                     </div>
+                     {% endif %}
+
+                     {% else %}
+                     <div class="col">
+                        <i class="fa fa-truck fa-3x" style="color: #ff3008 !important;"></i>
+                        <p class="mt-1 font-weight-bold text-dark mb-0">Order Pending</p>
+                     </div>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+    </div>
+</section>
+{% endblock body_content %}

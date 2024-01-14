@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Home | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+<section class="pt-5 pb-5 homepage-search-block position-relative">
+    <div class="banner-overlay"></div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 text-center pt-5 pb-5">
+               <h1 class="mt-2 mb-2">Data not found</h1>
+               <p>Uh-oh! Tracking ID {{tracking_id}} is doesn't <br>exist. Please start afresh.</p>
+               <a class="btn btn-primary btn-lg" href="{% url 'index' %}">GO HOME</a>
+            </div>
+         </div>
+
+    </div>
+    </div>
+</section>
+{% endblock body_content %}

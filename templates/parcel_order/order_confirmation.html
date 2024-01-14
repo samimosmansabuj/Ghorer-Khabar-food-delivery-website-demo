@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Order Confirmation | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+<section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 text-center pt-5 pb-5">
+               <i class="fa fa-check-square-o" aria-hidden="true" style="font-size: 250px; color: #3ecf8e !important;"></i>
+               <h1 class="mt-2 mb-2 text-success">Congratulations!</h1>
+               <p class="mb-5">You have successfully placed your order</p>
+               <a class="btn btn-primary btn-lg" href="{% url 'view_order' place_order.id %}">View Order :)</a>
+            </div>
+         </div>
+
+    </div>
+</section>
+{% endblock body_content %}

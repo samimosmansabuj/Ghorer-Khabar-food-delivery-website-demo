@@ -1,0 +1,52 @@
+<div class="card mb-4">
+    <div class="card-header">
+      <i class="fa fa-table mr-1"></i>
+      RECENT 10 ORDER
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr class="text-uppercase">
+              <th>User Name</th>
+              <th>Tracking ID</th>
+              <th>Status</th>
+              <th>Ordered on</th>
+              <th>Charge</th>
+              <th>Charge Pay</th>
+              <th>Charge Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!----><!---->
+            {% for order in order %}
+            <tr>
+              <td> {{order.user.username}} </td>
+              <td>{{order.tracking_ID}}</td>
+              <td><button disabled="" type="button" class="btn btn-sm btn-success btn-round">
+                {{order.status}}
+              </button>
+              </td>
+              <td>{{order.order_date}}</td>
+              <td>{{order.shipping_charge}}</td>
+              <td>{{order.pay_for}}</td>
+              <td>
+                {% if order.shipping_charge_paid == True %}
+                <button disabled="" type="button" class="btn btn-sm btn-success btn-round">
+                  Paid
+                </button>
+                {% else %}
+                <button disabled="" type="button" class="btn btn-sm btn-warning btn-round">
+                  Unpaid
+                </button>
+                {% endif %}
+              </td>
+              <td><a href="{% url 'order_view' order.id %}" class="btn btn-primary btn-sm">View</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

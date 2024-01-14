@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+    <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+    <div class="row">
+
+      {% for address in request.user.user_address.all %}
+       <div class="col-md-6">
+          <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+             <div class="gold-members p-4">
+                <div class="media">
+                   <div class="mr-3"><i class="fa fa-map-marker fa-3x"></i></div>
+                   <div class="media-body">
+                      <h6 class="mb-1 text-secondary">{{address.address_type}}</h6>
+                      <p class="text-black">{{address.address_01}}, {{address.upazila}}, {{address.district}} {{address.post_code}}, {{address.country}}
+                      </p>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       {% endfor %}
+
+
+    </div>
+ </div>
+
+ 

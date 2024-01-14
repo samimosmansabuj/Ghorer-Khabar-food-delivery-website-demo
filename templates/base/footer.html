@@ -1,0 +1,69 @@
+{% load static %}
+
+<section class="section pt-5 pb-5 text-center bg-white">
+    <div class="container">
+       <div class="row">
+          <div class="col-sm-12">
+             <h5 class="m-0">
+               Do you want your food delivered? <a href="{% url 'registration' %}">Work With Us</a></h5>
+          </div>
+       </div>
+    </div>
+ </section>
+ <section class="footer pt-5 pb-5">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-4 col-12 col-sm-12">
+             <h6 class="mb-3">Subscribe to our Newsletter</h6>
+             <form class="newsletter-form mb-1">
+                <div class="input-group">
+                   <input type="text" placeholder="Please enter your email" class="form-control">
+                   <div class="input-group-append">
+                      <button type="button" class="btn btn-primary">
+                      Subscribe
+                      </button>
+                   </div>
+                </div>
+             </form>
+             <p><a class="text-info" href="{% url 'registration' %}">Register now</a> to get updates on <a>Offers and Coupons</a></p>
+
+             <!-- <div class="app">
+                <p class="mb-2">DOWNLOAD APP</p>
+                <a>
+                <img class="img-fluid" src="{% static 'home/img/google.png' %}">
+                </a>
+                <a>
+                <img class="img-fluid" src="{% static 'home/img/apple.png' %}">
+                </a>
+             </div> -->
+          </div>
+          <div class="col-md-1 col-sm-6 mobile-none">
+          </div>
+          <div class="col-md-3 col-6 col-sm-4">
+             <h6 class="mb-3">Page</h6>
+             <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'registration' %}">Registration</a></li>
+             </ul>
+          </div>
+          <div class="col-md-4 col-12 col-sm-12">
+            <h6 class="mb-3">Contact Us</h6>
+             <ul>
+                <li><a>Phone Number: 01775155760</a></li>
+                <li><a>Email: team@gmail.com</a></li>
+                <li><a>Address:AGB Colony, Motijheel, Dhaka-1000</a></li>
+             </ul>
+          </div>
+       </div>
+    </div>
+ </section>
+
+ <footer class="pt-4 pb-4 text-center">
+    <div class="container">
+       <p class="mt-0 mb-0">© Copyright 2024 Ghorer Khabar. All Rights Reserved</p>
+       <small class="mt-0 mb-0"> Develop with <i class="fas fa-heart heart-icon text-danger"></i> by
+       <a class="text-danger" target="_blank" href="https://www.facebook.com/samim.o.sabuj03/">Samim Osman</a> - <a class="text-primary" target="_blank" href="https://www.instagram.com/iamgurdeeposahan/">Gurdeep Osahan</a>
+       </small>
+    </div>
+ </footer>

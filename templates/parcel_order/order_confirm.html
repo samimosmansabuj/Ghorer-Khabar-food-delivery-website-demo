@@ -1,0 +1,217 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Order Confirm | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+
+
+<section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+   <form action="{% url 'order_confirm' %}" method="POST">
+      {% csrf_token %}
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8">
+               <div class="offer-dedicated-body-left">
+                  <div class="pt-2"></div>
+                  <div class="bg-white rounded shadow-sm p-4 mb-4">
+                     <h4 class="mb-1">Destination Details</h4>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="bg-white card addresses-item mb-4 border border-success">
+                              <div class="gold-members p-4">
+                                 <div class="media">
+                                    <div class="mr-3"><i class="fa fa-home fa-3x"></i></div>
+                                    <div class="media-body">
+                                       <h6 class="mb-1 text-black">From</h6>
+                                       <p class="text-black">{{pickup_address.address_01}}, {{pickup_address.upazila}},
+                                          {{pickup_address.district}}, {{pickup_address.post_code}},
+                                          {{pickup_address.country}}
+                                       </p>
+                                       <input type="number" hidden value="{{pickup_address.id}}"
+                                          name="pickup_address_id">
+                                       <p class="mb-0 text-black font-weight-bold"><a
+                                             class="btn btn-sm btn-success mr-2"> Send Here</a>
+                                          <!-- <span>30MIN</span> -->
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="bg-white card addresses-item mb-4">
+                              <div class="gold-members p-4">
+                                 <div class="media">
+                                    <div class="mr-3"><i class="fa fa-briefcase fa-3x"></i></div>
+                                    <div class="media-body">
+                                       <h6 class="mb-1 text-secondary">To</h6>
+                                       <p>{{delivery_address.address_01}}, {{delivery_address.upazila}},
+                                          {{delivery_address.district}}, {{delivery_address.post_code}},
+                                          {{delivery_address.country}}
+                                       </p>
+                                       <input type="number" hidden value="{{delivery_address.id}}"
+                                          name="delivery_address_id">
+                                       <p class="mb-0 text-black font-weight-bold"><a
+                                             class="btn btn-sm btn-secondary mr-2"> Recieved Here</a>
+                                          <!-- <span>40MIN</span> -->
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="pt-2"></div>
+                  <div class="bg-white rounded shadow-sm p-4 osahan-payment">
+                     <div>
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title" id="add-address">Item Details</h5>
+                           </div>
+                           <div class="modal-body">
+
+                              <div class="form-row">
+                                 <div class="form-group col-md-12">
+                                    <div class="row">
+                                       <div class="col-6">
+                                          <label for="inputPassword4">Item Price Value
+                                          </label>
+                                          {{delivery_order_form.item_price}}
+                                       </div>
+                                       <div class="col-6">
+                                          <label for="inputPassword4">Item Name</label>
+                                          <div class="input-group">
+                                             {{delivery_order_form.item_name}}
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="inputPassword4">Item Description</label>
+                                    <div class="input-group">
+                                       {{delivery_order_form.item_description}}
+                                    </div>
+                                 </div>
+
+                                 <div class="form-group mb-0 col-md-12">
+                                    <label for="inputPassword4">Pay Delivery Charge
+                                    </label>
+                                    <div class="btn-group btn-group-toggle d-flex justify-content-center"
+                                       data-toggle="buttons">
+                                       <label class="btn btn-info active">
+                                          <input type="radio" name="pay_for" id="option1" autocomplete="off" checked
+                                             value="Pickup">
+                                          Pickup
+                                       </label>
+                                       <label class="btn btn-info">
+                                          <input type="radio" name="pay_for" id="option2" autocomplete="off"
+                                             value="Recipent">
+                                          Recipent
+                                       </label>
+                                    </div>
+                                 </div>
+                              </div>
+
+                           </div>
+
+                        </div>
+                     </div>
+                  </div>
+
+
+                  <div class="pt-2"></div>
+                  <div class="bg-white rounded shadow-sm p-4 osahan-payment">
+                     <div>
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title" id="add-address">Recipent Information</h5>
+                           </div>
+                           <div class="modal-body">
+
+                              <div class="form-row">
+                                 <div class="form-group col-md-12">
+                                    <label for="inputPassword4">Recipient Name</label>
+                                    <div class="input-group">
+                                       {{delivery_order_form.recipient_name}}
+                                    </div>
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="inputPassword4">Recipient Phone Number
+                                    </label>
+                                    {{delivery_order_form.recipient_phone_number}}
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="inputPassword4">Special Instructinos
+                                    </label>
+                                    {{delivery_order_form.special_instructions}}
+                                 </div>
+
+                                 <div class="form-group mb-0 col-md-12">
+                                    <label for="inputPassword4">Shipping By
+                                    </label>
+                                    <div class="btn-group btn-group-toggle d-flex justify-content-center"
+                                       data-toggle="buttons">
+                                       <label class="btn btn-info active">
+                                          <input type="radio" name="delivery_system" id="option1" autocomplete="off"
+                                             checked value="Train">
+                                          Train
+                                       </label>
+                                       <label class="btn btn-info">
+                                          <input type="radio" name="delivery_system" id="option2" autocomplete="off"
+                                             value="Bus">
+                                          Bus
+                                       </label>
+                                    </div>
+                                 </div>
+                              </div>
+
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+               <div class="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
+                  <div class="mb-2 bg-white rounded p-2 clearfix">
+                     <div class="input-group input-group-sm mb-2">
+                        <select name="payment_method" id="" class="form-control">
+                           <option value="Cash">Cash</option>
+                           <option value="Online">Online</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="mb-2 bg-white rounded p-2 clearfix">
+                     <p class="mb-1">Delivery Fee <span class="text-info" data-toggle="tooltip" data-placement="top"
+                           title="Total discount breakup">
+                           <i class="fa fa-info-circle"></i>
+                        </span> <span class="float-right text-dark">{{shipping_charge}} BDT</span>
+                     </p>
+                     <p class="mb-1 text-success">Total Discount
+                        <span class="float-right text-success">0 BDT</span>
+                     </p>
+                     <hr />
+                     <h6 class="font-weight-bold mb-0">TO PAY <span class="float-right">{{shipping_charge}} BDT</span>
+                     </h6>
+                     <input type="number" value="{{shipping_charge}}" name="shipping_charge" hidden>
+                  </div>
+                  <button type="submit" class="btn btn-success btn-block btn-lg">Order Confirm {{shipping_charge}} BDT
+                     <i class="fa fa-long-arrow-right"></i></button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </form>
+</section>
+
+
+{% endblock body_content %}

@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>My Account | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+
+<section class="section pt-4 pb-4 osahan-account-page">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-3">
+            <div class="osahan-account-page-left shadow-sm bg-white h-100">
+               <div class="border-bottom p-4">
+                  <div class="osahan-user text-center">
+                     <div class="osahan-user-media">
+                        {% if request.user.user_type == 'Normal User' %}
+
+                        {% if normal_user.profile_picture %}
+                        <img class="mb-3 rounded-pill shadow-sm mt-1" src="{{normal_user.profile_picture.url}}" alt="{{request.user.username}}">
+                        {% else %}
+                        <i class="mb-3 rounded-pill shadow-sm mt-1 fa fa-user fa-5x"></i>
+                        {% endif %}
+                        
+
+                        {% elif request.user.user_type == 'Merchant' %}
+
+                        {% if merchant.company_logo %}
+                        <img class="mb-3 rounded-pill shadow-sm mt-1" src="{{merchant.company_logo.url}}" alt="{{request.user.username}}">
+                        {% else %}
+                        <i class="mb-3 rounded-pill shadow-sm mt-1 fa fa-user fa-5x"></i>
+                        {% endif %}
+
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+               <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active" id="orders-tab" data-toggle="tab" href="#profile" role="tab"
+                        aria-controls="orders" aria-selected="true"><i class="fa fa-user"></i> Account</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="addresses-tab" data-toggle="tab" href="#addresses" role="tab"
+                        aria-controls="addresses" aria-selected="false"><i class="fa fa-map-pin"></i>
+                        Addresses</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" id="addresses-tab" href="{% url 'logout' %}" role="tab"
+                        aria-controls="addresses" aria-selected="false">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i></i> Logout</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="col-md-9">
+            <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+               <div class="tab-content" id="myTabContent">
+
+                  {% include './profile.html' %}
+
+                  {% include './manage_addres.html' %}
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock body_content %}

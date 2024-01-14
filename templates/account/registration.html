@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Registration | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+<div class="row no-gutter">
+   <div class="d-none d-md-flex col-md-4 col-lg-3 bg-image"></div>
+   <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-9 col-lg-8 mx-auto pl-5 pr-5">
+                  <h3 class="login-heading mb-4">New Registration!</h3>
+                  <form method="POST" novalidate>
+                     {% csrf_token %}
+                     <div class="form-label-group">
+                        {{form.username}}
+                        <label for="inputUsername">Username</label>
+                     </div>
+                     <div class="form-label-group">
+                        {{form.email}}
+                        <label for="inputEmail">Email address / Mobile</label>
+                     </div>
+                     <div class="form-label-group">
+                        {{form.phone_number}}
+                        <label for="inputPhoneNumber">Phone Number</label>
+                     </div>
+                     <div class="form-label-group">
+                        {{form.password}}
+                        <label for="inputPassword">Password</label>
+                     </div>
+                     <div class="form-label-group">
+                        {{form.user_type}}
+                     </div>
+
+                     <button class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Registration</button>
+                        
+                     <div class="text-center pt-3">
+                        Already have an Account? <a class="font-weight-bold" href="{% url 'login' %}">Sign In</a>
+                     </div>
+                     <div class="text-center pt-3">
+                        Forget your password? 
+                        <a class="font-weight-bold" href="" data-toggle="modal" data-target="#forget-password-modal">Forget Password</a>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="d-none d-md-flex col-md-4 col-lg-3 bg-image"></div>
+</div>
+{% endblock body_content %}
+
+

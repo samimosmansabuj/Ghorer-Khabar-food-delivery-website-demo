@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Order List | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+<section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+    <div class="container">
+        {% if delivery_order %}
+        {% for delivery_order in delivery_order %}
+        <div class="bg-white card mb-4 order-list shadow-sm">
+            <div class="gold-members p-4">
+                <a>
+                    <div class="media">
+                        <div class="media-body">
+                            <span class="float-right text-info">
+                                {{delivery_order.status}} on {{delivery_order.order_update}}
+                                <i class="fa fa-check-circle-o" style="color: #3ecf8e !important;"></i>
+                            </span>
+                            <h6 class="mb-2">
+                                <a href="" class="text-black">
+                                    {{delivery_order.item_name}}
+                                </a>
+                            </h6>
+
+                            <p class="text-gray mb-1">
+                                <i class="fa fa-fighter-jet"></i>
+                                {{delivery_order.delivery_address.address_01}},
+                                {{delivery_order.delivery_address.upazila}},
+                                {{delivery_order.delivery_address.district}}
+                                {{delivery_order.delivery_address.post_code}},
+                                {{delivery_order.delivery_address.country}}
+                            </p>
+
+                            <p class="text-gray mb-3">
+                                <i class="fa fa-list-alt"></i>
+                                ORDER #{{delivery_order.tracking_ID}}
+                                <i class="fa fa-clock-o ml-2" aria-hidden="true"></i> {{delivery_order.order_date}}
+                            </p>
+                            <hr>
+                            <div class="float-right">
+                                {% if delivery_order.shopping_payment_method == 'Online' %}
+                                {% if delivery_order.shipping_charge_paid != True %}
+                                <a class="btn btn-sm btn-primary" href="{% url 'unpaid_order_payment' delivery_order.id %}">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    Pay Online
+                                </a>
+                                {% endif %}
+                                {% endif %}
+
+
+                                <!-- <a class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                    Invoice PDF
+                                </a> -->
+
+
+                                <a class="btn btn-sm btn-primary" href="{% url 'view_order' delivery_order.id %}">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    VIEW
+                                </a>
+                            </div>
+                            <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold">
+                                    Total Shipping Charge:</span> {{delivery_order.shipping_charge}} BDT ({% if delivery_order.shipping_charge_paid == True %}Paid{% else %}Unpaid{% endif %})
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="bg-white card mb-4 order-list shadow-sm">
+            <div class="gold-members p-4">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-body">
+
+                            <h3 class="text-gray mb-3" style="text-align: center !important;">
+                                No Order Found {{delivery_order.order_ID}}
+                                <i class="fa fa-clock-o ml-2"></i>
+                            </h3>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+
+    </div>
+</section>
+{% endblock body_content %}

@@ -1,0 +1,17 @@
+asgiref==3.7.2
+certifi==2023.11.17
+charset-normalizer==3.3.2
+Django==5.0.1
+django-model-utils==4.3.1
+django-notifications-hq==1.8.3
+idna==3.6
+jsonfield==3.1.0
+pillow==10.2.0
+python-dotenv==1.0.0
+pytz==2023.3.post1
+requests==2.31.0
+sqlparse==0.4.4
+sslcommerz-lib==1.0
+swapper==1.3.0
+tzdata==2023.4
+urllib3==2.1.0

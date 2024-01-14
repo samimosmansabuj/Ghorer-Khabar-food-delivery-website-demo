@@ -1,0 +1,29 @@
+<div class="col-md-6">
+    <div class="col-md-12 col-lg-12 mx-auto pl-5 pr-5">
+        <h3 class="login-heading mb-4">Welcome back!</h3>
+        <form method="POST" novalidate action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-label-group">
+                {{form.username}}
+                <label for="inputUsername">Username / Email address</label>
+            </div>
+            <div class="form-label-group">
+                {{form.password}}
+                <label for="inputPassword">Password</label>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Remember password</label>
+            </div>
+            <button type="submit" class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in</button>
+            <div class="text-center pt-3">
+                Don’t have an account?
+                <a class="font-weight-bold" href="{% url 'registration' %}">Sign Up</a>
+            </div>
+            <div class="text-center pt-3">
+                Forget your password? 
+                <a class="font-weight-bold" href="" data-toggle="modal" data-target="#forget-password-modal">Forget Password</a>
+             </div>
+        </form>
+    </div>
+</div>

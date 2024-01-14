@@ -1,0 +1,112 @@
+{% load static %}
+{% load notifications_tags %}
+<nav class="sb-topnav navbar navbar-expand navbar-light bg-white shadow-sm">
+
+    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+        <img alt="logo" src="{% static 'dashboard/img/logo.png' %}">
+    </a>
+
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#" style="font-size: 30px !important;"><i
+            class="fa fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+                aria-describedby="basic-addon2" />
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Navbar-->
+    <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-search mr-2"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 shadow-none"
+                            placeholder="Search people, jobs and more..." aria-label="Search"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+
+
+
+        <!-- Nav Notification - User Notification Start -->
+        {% notifications_unread as unread_count %}
+        <li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-bell"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">{% if unread_count %}{{unread_count}}{% else %}0{% endif %}</span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+                <h6 class="dropdown-header">
+                    Notification Center
+                </h6>
+
+                {% for i in request.user.notifications.unread %}
+                <a class="dropdown-item d-flex align-items-center" href="{% url 'order_view' i.action_object.id %}">
+                    <div class="dropdown-list-image mr-3">
+                        <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                        <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="font-weight-bold overflow-hidden">
+                        <div class="text-truncate">{{i.verb}}
+                        </div>
+                        <div class="small text-gray-500">{{i.actor}} · {{i.timesince}} Ago</div>
+                    </div>
+                </a>
+                {% endfor %}
+
+
+                <a class="dropdown-item text-center small text-gray-500">Read More Messages</a>
+            </div>
+        </li>
+        <!-- Nav Notification - User Notification Start -->
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow ml-1 osahan-profile-dropdown">
+            <a class="nav-link dropdown-toggle pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-user-circle" style="font-size: 35px;"></i>
+                <!-- <img class="img-profile rounded-circle" src="{% static 'dashboard/img/user/1.png' %}"> -->
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow-sm">
+                <div class="p-3 d-flex align-items-center">
+                    <div class="dropdown-list-image mr-3">
+                        <i class="fa fa-user-circle" style="font-size: 35px;"></i>
+                        <!-- <img class="rounded-circle" src="{% static 'dashboard/img/user/1.png' %}" alt="">
+                         -->
+                        <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">{{request.user.username}}</div>
+                        <div class="small text-gray-500">{{request.user.user_type}}</div>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'my_profile' %}"><i class="fa fa-edit"></i> My Account</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+</nav>

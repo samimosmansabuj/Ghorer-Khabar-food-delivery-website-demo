@@ -1,0 +1,179 @@
+{% load static %}
+<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="orders-tab">
+    <h4 class="font-weight-bold mt-0 mb-4">My Account</h4>
+
+    <div class="bg-white card mb-4 order-list shadow-sm">
+        <div class="gold-members p-4">
+            <div>
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <div class="form-row">
+
+                            {% if request.user.user_type == 'Normal User' %}
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="inputPassword4">First Name
+                                        </label>
+                                        <input type="text" {% if normal_user.first_name %}value="{{normal_user.first_name}}"{% endif %} class="form-control" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Last Name
+                                        </label>
+                                        <input type="text" {% if normal_user.last_name %}value="{{normal_user.last_name}}"{% endif %} class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            {% elif request.user.user_type == 'Merchant' %}
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Name
+                                        </label>
+                                        <input type="text" name="pickup_address_01" class="form-control" readonly {% if merchant.name %}value="{{merchant.name}}"{% endif %}>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Company Name
+                                        </label>
+                                        <input type="text" name="pickup_address_01" class="form-control" readonly {% if merchant.company_name %}value="{{merchant.company_name}}"{% endif %}>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Username
+                                        </label>
+                                        <input type="text" value="{{request.user.username}}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Email Address
+                                        </label>
+                                        <input type="text" value="{{request.user.email}}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="inputPassword4">Phone Number
+                                        </label>
+                                        <input type="text" value="{{request.user.phone_number}}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputPassword4">User Type
+                                        </label>
+                                        <input type="text" value="{{request.user.user_type}}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn d-flex w-50 text-center  justify-content-center btn-primary" data-toggle="modal"  data-target="#edit-profile-modal">EDIT PROFILE</button>
+
+                                <button type="button" class="btn d-flex w-50 text-center justify-content-center btn-outline-primary" data-dismiss="modal">DELETE ACCOUNT
+                                </button>
+                             </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Edit Profile Model Pop Start -->
+<div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog" aria-labelledby="edit-profile"
+   aria-hidden="true">
+   <form action="{% url 'update_account' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="width: 50%;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="edit-profile">Edit profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+               <div class="form-row">
+
+                  <div class="form-group col-md-12">
+
+                     {% if request.user.user_type == 'Normal User' %}
+                     <div class="row">
+                        <div class="col-6">
+                           <label>First Name</label>
+                           <input type="text" class="form-control" placeholder="Enter First Name" name="first_name" {% if normal_user.first_name %}value="{{normal_user.first_name}}"{% endif %}>
+                        </div>
+                        <div class="col-6">
+                           <label>Last Name</label>
+                           <input type="text" class="form-control" placeholder="Enter Last Name" name="last_name" {% if normal_user.last_name %}value="{{normal_user.last_name}}"{% endif %}>
+                        </div>
+                     </div>
+                     {% elif request.user.user_type == 'Merchant' %}
+                     <div class="row">
+                        <div class="col-6">
+                           <label>Name</label>
+                           <input type="text" class="form-control" placeholder="Enter Name" name="name" {% if merchant.name %}value="{{merchant.name}}"{% endif %}>
+                        </div>
+                        <div class="col-6">
+                           <label>Company Name</label>
+                           <input type="text" class="form-control" placeholder="Enter Last Name" name="company_name" {% if merchant.company_name %}value="{{merchant.company_name}}"{% endif %}>
+                        </div>
+                     </div>
+                     {% endif %}
+
+                     <div class="row">
+                        <div class="col-6">
+                           <label>Username</label>
+                           <input type="text" value="{{request.user.username}}" class="form-control" placeholder="Enter Username" name="username">
+                        </div>
+                        <div class="col-6">
+                           <label>Email</label>
+                           <input type="email" value="{{request.user.email}}" class="form-control" placeholder="Enter Email" name="email">
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-6">
+                           <label>Phone Number</label>
+                           <input type="text" value="{{request.user.phone_number}}" class="form-control" placeholder="Enter Phone Number" name="phone_number">
+                        </div>
+                        <div class="col-6">
+                           <label>User Type</label>
+                           <input type="text" value="{{request.user.user_type}}" class="form-control" readonly>
+                        </div>
+                     </div>
+                    
+                    {% if request.user.user_type == 'Normal User' %}
+                    <label>Profile Picture</label>
+                    <input type="file" accept="image" class="form-control"  name="profile_picture">
+                    {% elif request.user.user_type == 'Merchant' %}
+                    <label>Logo</label>
+                    <input type="file" accept="image" class="form-control"  name="company_logo">
+                    {% endif %}
+                     
+                  </div>
+               </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn d-flex w-50 text-center justify-content-center btn-outline-primary"
+               data-dismiss="modal">CANCEL
+            </button><button type="submit"
+               class="btn d-flex w-50 text-center justify-content-center btn-primary">UPDATE</button>
+         </div>
+      </div>
+   </div>
+</form>
+</div>
+<!-- Edit Profile Model Pop End -->

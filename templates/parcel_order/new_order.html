@@ -1,0 +1,185 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Place New Order | Ghorer Khabar</title>
+{% endblock title %}
+
+
+{% block body_content %}
+
+
+<form method="POST">
+   {% csrf_token %}
+   <section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+      <div class="container">
+
+         <div class="row">
+
+            <div class="col-6">
+               <div>
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="add-address">Add Pickup Address</h5>
+                     </div>
+                     <div class="modal-body">
+
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputPassword4">Your Address
+                              </label>
+
+                              <select name="previous_pickup_address">
+                                 <option value="Add New Address">Add New Address</option>
+
+                                 {% for address_list in address_list %}
+                                 <option value="{{address_list.id}}">{{address_list.address_01}} {{address_list.upazila}} {{address_list.district}} {{address_list.country}}</option>
+                                 {% endfor %}
+                                 
+                              </select>
+
+                           </div>
+                        </div>
+
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputPassword4">Complete Address
+                              </label>
+                              <input type="text" name="pickup_address_01" class="form-control"
+                                 placeholder="Enter Full Address">
+                           </div>
+                           <div class="form-group col-md-12">
+                              <div class="row">
+                                 <div class="col-6">
+                                    <label for="inputPassword4">Upazila
+                                    </label>
+                                    <input type="text" name="pickup_upazila" class="form-control" placeholder="Upazila">
+                                 </div>
+                                 <div class="col-6">
+                                    <label for="inputPassword4">District
+                                    </label>
+                                    <input type="text" name="pickup_district" class="form-control"
+                                       placeholder="District">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-group mb-0 col-md-12">
+                              <label for="inputPassword4">Address Type
+                              </label>
+                              <div class="btn-group btn-group-toggle d-flex justify-content-center"
+                                 data-toggle="buttons">
+                                 <label class="btn btn-info active">
+                                    <input type="radio" name="pickup_address_type" id="option1" autocomplete="off" checked value="Home"> Home
+                                 </label>
+                                 <label class="btn btn-info">
+                                    <input type="radio" name="pickup_address_type" id="option2" autocomplete="off" value="Work"> Work
+                                 </label>
+                                 <label class="btn btn-info">
+                                    <input type="radio" name="pickup_address_type" id="option3" autocomplete="off" value="Others"> Other
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+            <div class="col-6">
+               <div>
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="add-address">Add Delivery Address</h5>
+                     </div>
+                     <div class="modal-body">
+
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputPassword4">Your Address
+                              </label>
+                              <select name="previous_delivery_address">
+
+                                 <option value="Add New Address">Add New Address</option>
+
+                                 {% for address_list in address_list %}
+                                 <option value="{{address_list.id}}">{{address_list.address_01}} {{address_list.upazila}} {{address_list.district}} {{address_list.country}}</option>
+                                 {% endfor %}
+
+                              </select>
+                           </div>
+                        </div>
+
+                        <div class="form-row">
+                           <div class="form-group col-md-12">
+                              <label for="inputPassword4">Complete Address
+                              </label>
+                              <input type="text" name="delivery_address_01" class="form-control"
+                                 placeholder="Enter Full Address">
+                           </div>
+                           <div class="form-group col-md-12">
+                              <div class="row">
+                                 <div class="col-6">
+                                    <label for="inputPassword4">Upazila
+                                    </label>
+                                    <input type="text" name="delivery_upazila" class="form-control"
+                                       placeholder="Upazila">
+                                 </div>
+                                 <div class="col-6">
+                                    <label for="inputPassword4">District
+                                    </label>
+                                    <input type="text" name="delivery_district" class="form-control"
+                                       placeholder="District">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-group mb-0 col-md-12">
+                              <label for="inputPassword4">Address Type
+                              </label>
+                              <div class="btn-group btn-group-toggle d-flex justify-content-center"
+                                 data-toggle="buttons">
+                                 <label class="btn btn-info active">
+                                    <input type="radio" name="delivery_address_type" id="option1" autocomplete="off" checked value="Home"> Home
+                                 </label>
+                                 <label class="btn btn-info">
+                                    <input type="radio" name="delivery_address_type" id="option2" autocomplete="off" value="Work"> Work
+                                 </label>
+                                 <label class="btn btn-info">
+                                    <input type="radio" name="delivery_address_type" id="option3" autocomplete="off" value="Others"> Other
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </section>
+
+
+   <section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
+      <div class="container">
+         <div class="row">
+            <div class="modal-content">
+               <div class="modal-footer">
+                  <button type="button" class="btn d-flex w-50 text-center justify-content-center btn-outline-primary"
+                     data-dismiss="modal">CANCEL!
+                  </button><button type="submit"
+                     class="btn d-flex w-50 text-center justify-content-center btn-primary">Submit</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</form>
+
+
+
+
+{% endblock body_content %}

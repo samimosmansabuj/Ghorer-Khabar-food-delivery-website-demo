@@ -1,0 +1,32 @@
+<!-- Edit Profile Model Pop Start -->
+<div class="modal fade" id="forget-password-modal" tabindex="-1" role="dialog" aria-labelledby="forget-password" aria-hidden="true">
+    <form action="{% url 'reset_password' %}" method="POST">
+       {% csrf_token %}
+       <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="width: 50%;">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="forget-password">Forget Password!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <div class="form-row">
+                   <div class="form-group col-md-12">
+                      <input type="email" class="form-control" placeholder="Enter Email Address" name="email">
+                   </div>
+                </div>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn d-flex w-50 text-center justify-content-center btn-outline-primary" data-dismiss="modal">
+                   CANCEL
+                </button>
+                <button type="submit" class="btn d-flex w-50 text-center justify-content-center btn-primary">
+                   SUBMIT
+                </button>
+             </div>
+          </div>
+       </div>
+    </form>
+ </div>
+ <!-- Edit Profile Model Pop End -->

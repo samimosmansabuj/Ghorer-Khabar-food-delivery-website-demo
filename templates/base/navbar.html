@@ -1,0 +1,95 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light osahan-nav shadow-sm">
+   <div class="container">
+      <a class="navbar-brand" href="{% url 'index' %}">
+         <img alt="logo" src="{% static 'home/img/logo.png' %}">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="" data-toggle="modal" data-target="#tracking-id-modal">Track
+                  Order </a>
+            </li>
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+               <a class="nav-link" href="{% url 'delivery_order_list' %}">Deliveries </a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="{% url 'place_new_order' %}">New Delivery </a>
+            </li>
+            {% endif %}
+
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+               <a class="nav-link" href="{% url 'registration' %}">Register </a>
+            </li>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="fa fa-user nav-osahan-pic rounded-pill" aria-hidden="true" style="font-size: 25px; text-align: center;"></i> My Account
+                  <!-- <img alt="Generic placeholder image" src="{% static 'home/img/user/4.png' %}" > My Account -->
+               </a>
+               <div class="dropdown-menu dropdown-menu-right shadow-sm border-0">
+                  <a class="dropdown-item" href="{% url 'my_account' %}"><i class="fa fa-user"></i> Profile</a>
+
+                  <a class="dropdown-item" href="{% url 'my_account' %}#addresses">
+                     <i class="fa fa-map-marker"></i>
+                     Addresses</a>
+
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a>
+               </div>
+            </li>
+            {% endif %}
+
+         </ul>
+      </div>
+   </div>
+</nav>
+
+
+
+
+
+
+
+<!-- Edit Profile Model Pop Start -->
+<div class="modal fade" id="tracking-id-modal" tabindex="-1" role="dialog" aria-labelledby="tracking-id"
+   aria-hidden="true">
+   <form action="{% url 'tracking_order' %}" method="GET">
+      <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="width: 50%;">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="tracking-id">Tracking Order</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-row">
+                  <div class="form-group col-md-12">
+                     <input type="text" class="form-control" placeholder="Enter Tracking" name="tracking_id">
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn d-flex w-50 text-center justify-content-center btn-outline-primary" data-dismiss="modal">
+                  CANCEL
+               </button>
+               <button type="submit" class="btn d-flex w-50 text-center justify-content-center btn-primary">
+                  TRACKING ID
+               </button>
+            </div>
+         </div>
+      </div>
+   </form>
+</div>
+<!-- Edit Profile Model Pop End -->

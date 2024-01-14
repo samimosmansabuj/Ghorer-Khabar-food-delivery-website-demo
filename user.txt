@@ -1,0 +1,15 @@
+Regular User----
+username: regularuser
+password: regularuser
+
+Merchant User----
+username: merchantuser
+password: merchantuser
+
+Admin User----
+username: admin
+password: admin
+
+Staff User----
+username: admin_staff
+password: admin
