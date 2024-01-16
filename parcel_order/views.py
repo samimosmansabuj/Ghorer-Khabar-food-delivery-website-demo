@@ -144,6 +144,7 @@ def order_confirm(request):
             place_order.delivery_address = delivery
             place_order.user = request.user
             place_order.save()
+            qr_bar_code_genarate(place_order.tracking_ID)
             
             user = request.user
             recipient=Custom_User.objects.filter(Q(user_type='Admin') | Q(user_type='Staff'))
@@ -156,6 +157,36 @@ def order_confirm(request):
             return redirect('order_confirmation', id=place_order.id)
         else:
             return HttpResponse(delivery_order_form.errors)
+
+import qrcode
+from io import BytesIO
+from django.core.files import File
+import barcode
+from barcode.writer import ImageWriter
+
+def qr_bar_code_genarate(tracking_ID):
+    order = get_object_or_404(Delivery_Order, tracking_ID=tracking_ID)
+    qr_code = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr_code.add_data(f'http://127.0.0.1:8000/tracking-order/?tracking_id={tracking_ID}')
+    qr_code.make(fit=True)
+    
+    qr_image = qr_code.make_image(fill_color="black", back_color="white")
+    qr_image_stream = BytesIO()
+    qr_image.save(qr_image_stream)
+    qr_image_stream.seek(0)
+    order.qr_code.save(f'qr_tracking_id_{tracking_ID}.png', File(qr_image_stream), save=True)
+    
+    bar_code = barcode.get('code128', f'{tracking_ID}', writer=ImageWriter())
+    bar_code_image = bar_code.render()
+    bar_code_stream = BytesIO()
+    bar_code_image.save(bar_code_stream, format='PNG')
+    bar_code_stream.seek(0)
+    order.bar_code.save(f'bar_tracking_id_{tracking_ID}.png', File(bar_code_stream), save=True)
 
 
 def unpaid_order_payment(request, id):

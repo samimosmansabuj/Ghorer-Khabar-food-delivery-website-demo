@@ -29,6 +29,9 @@ class Delivery_Order(models.Model):
         ('Online', 'Online'),
     )
     tracking_ID = models.CharField(max_length=10, blank=True, null=True)
+    qr_code = models.ImageField(upload_to='order/qrcode/', blank=True, null=True)
+    bar_code = models.ImageField(upload_to='order/barcode/', blank=True, null=True)
+    
     status = models.CharField(choices=STATUS, max_length=50, blank=True, null=True)
     status_details = models.CharField(max_length=600, blank=True, null=True)
     delivery_system = models.CharField(choices=DELIVERY_SYSTEM, max_length=50, blank=True, null=True)
