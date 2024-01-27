@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Invoice Template</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice {
+            width: 80%;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-header,
+        .invoice-footer {
+            background-color: #f5f5f5;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .invoice-body {
+            padding: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invoice">
+        <div class="invoice-header">
+            <h1>Invoice</h1>
+        </div>
+        <div class="invoice-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item Description</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item 1</td>
+                        <td>2</td>
+                        <td>$10.00</td>
+                        <td>$20.00</td>
+                    </tr>
+                    <tr>
+                        <td>Item 2</td>
+                        <td>1</td>
+                        <td>$15.00</td>
+                        <td>$15.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="invoice-footer">
+            <p class="total">Total: $35.00</p>
+        </div>
+    </div>
+
+</body>
+</html>

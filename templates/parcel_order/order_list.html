@@ -52,10 +52,10 @@
                                 {% endif %}
 
 
-                                <!-- <a class="btn btn-sm btn-outline-primary">
+                                <a class="btn btn-sm btn-outline-primary" href="{% url 'order_invoice_print' delivery_order.id %}">
                                     <i class="fa fa-file-pdf-o"></i>
                                     Invoice PDF
-                                </a> -->
+                                </a>
 
 
                                 <a class="btn btn-sm btn-primary" href="{% url 'view_order' delivery_order.id %}">
@@ -72,6 +72,7 @@
             </div>
         </div>
         {% endfor %}
+
         {% else %}
         <div class="bg-white card mb-4 order-list shadow-sm">
             <div class="gold-members p-4">

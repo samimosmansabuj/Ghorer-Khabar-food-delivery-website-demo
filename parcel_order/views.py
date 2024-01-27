@@ -195,6 +195,8 @@ def unpaid_order_payment(request, id):
     order = get_object_or_404(Delivery_Order, id=id)
     return online_payment(order.id)
 
+
+
 # ====================Online Payment Credential Start======================
 def online_payment(id):
     order = get_object_or_404(Delivery_Order, id=id)
@@ -271,48 +273,63 @@ def view_order(request, id):
 
 
 
-# Create your views here.
-# def place_new_order(request):
-#     if request.method == 'POST':
-#         pickup_forms = PickUp_Address_Form(request.POST)
-#         print(pickup_forms)
-#         if pickup_forms.is_valid():
-#             pickup_address = pickup_forms.save()
-#             pickup_address.user = request.user
-#             pickup_address.address_type = 'PickUp Address'
-#             pickup_address.save()
-#         else:
-#             return HttpResponse(pickup_forms.errors)
-        
-#         delivery_forms = Delivery_Address_Form(request.POST)
-#         print(delivery_forms)
-#         if delivery_forms.is_valid():
-#             delivery_address = delivery_forms.save()
-#             delivery_address.user = request.user
-#             delivery_address.address_type = 'Delivery Address'
-#             delivery_address.save()
-#         else:
-#             return HttpResponse(delivery_forms.errors)
-        
-#         delivery_address_district = delivery_address.district
-#         pickup_address_district = pickup_address.district
-#         if delivery_address_district.upper() == pickup_address_district.upper():
-#             shipping_charge = 80
-#         else:
-#             shipping_charge = 200
-        
-#         context = {
-#             'pickup_address': pickup_address,
-#             'delivery_address': delivery_address,
-#             'shipping_charge': shipping_charge,
-#         }
-#         return render(request, 'parcel_order/order_confirm.html', context)
+def order_invoice(request, id):
+    return render(request, 'parcel_order/invoice.html')
+
+
+
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def order_invoice_print(request, id):
+    order = get_object_or_404(Delivery_Order, id=id)
+    context = {'order': order}
+    template_path = 'parcel_order/invoice_print.html'
+    invoice_pdf = html_to_pdf(template_path, context)
+    return HttpResponse(invoice_pdf, content_type='application/pdf')
+
+def html_to_pdf(template_src, context):
+    template = get_template(template_src)
+    html = template.render(context)
+    result = BytesIO()
     
-#     else:
-#         pickup_forms = PickUp_Address_Form()
-#         delivery_forms = Delivery_Address_Form()
-#         context = {'pickup_forms': pickup_forms, 'delivery_forms': delivery_forms}
-#     return render(request, 'parcel_order/new_order.html', context)
+    # pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    
+    if not pdf.err:
+        response = HttpResponse(result.getvalue(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=invoice.pdf'
+        return response
+    return HttpResponse('Error generating PDF', status=500)
 
 
+
+
+from django.views import View
+import os
+
+class InvoiceView(View):
+    @staticmethod
+    def get(request, id):
+        invoice = get_object_or_404(Delivery_Order, id=id) # 1.
+        return _render_to_pdf(invoice)
+
+
+def _render_to_pdf(invoice):
+    template = get_template("parcel_order/invoice_print.html")
+    html = template.render(
+        {
+            # "logos": os.path.join(STATIC_ROOT, "logo.png"), # 2.
+            "invoice": invoice,
+        }
+    )
+    
+    pdf = BytesIO()
+    pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), pdf) # 3.
+    
+    response = HttpResponse(pdf.getvalue(), content_type="application/pdf")
+    response["Content-Disposition"] = \
+        f"attachment; filename=invoice{invoice.id}.pdf"
+    
+    return response
 

@@ -9,6 +9,10 @@ urlpatterns = [
     path('order-list/', delivery_order_list, name='delivery_order_list'),
     path('tracking-order/', tracking_order, name='tracking_order'),
     path('order-view/<int:id>/', view_order, name='view_order'),
+    
+    path('order-invoice/<int:id>/', order_invoice, name='order_invoice'),
+    path('order-invoice-print/<int:id>/', order_invoice_print, name='order_invoice_print'),
+    
     path('order-confirmation/<int:id>/', order_confirmation, name='order_confirmation'),
     
     path('order/payment-fail/', payment_fail, name='payment_fail'),
